@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    
+</head>
+    
+<body>
+    <input type="text" id="user" placeholder="username">
+    <input type="text" id="receiver" placeholder="receiver">
+    <textarea name="" id="message" cols="30" rows="10"></textarea>
+
+    <button data-btn="init-chat">
+        Start
+    </button>
+    <button data-btn="send-message">Send</button>
+    
+    <script>
+        class ChatClient{
+            constructor(){
+                this.ws = null;
+            }
+            init(username){
+                if(this.ws){
+                    this.ws.close();
+                    this.ws = null;
+                }
+                this.ws = new WebSocket('ws://127.0.0.1:1337',['WebChat',username]);
+                this.ws.onopen = (e)=>{
+                    console.log(e);
+                }
+
+                this.ws.onmessage = (message) =>{
+                    console.log(message);
+                }
+                return this.ws;
+            }
+            send(){
+                this.ws.send([user.value, message.value, receiver.value]);
+            }
+            parse(){
+
+            }
+            stringify(){
+                
+            }
+        }
+ 
+        var chatApp = new ChatClient();
+        var init = document.querySelector('[data-btn=init-chat]');
+        var sendmessage = document.querySelector('[data-btn=send-message]');
+        init.onclick = function(){
+            chatApp.init(user.value);
+        }
+
+        sendmessage.onclick = function(){
+            chatApp.send();
+        }
+    </script>
+</body>
+</html>
