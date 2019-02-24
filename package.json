@@ -21,6 +21,10 @@
   },
   "homepage": "https://github.com/jothamhernandez/websocket-chat#readme",
   "devDependencies": {
+    "laravel-mix": "^4.0.14",
     "websocket": "^1.0.28"
+  },
+  "dependencies": {
+    "vue": "^2.6.7"
   }
 }
