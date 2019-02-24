@@ -27,10 +27,8 @@ ws.on('connect', function(data){
         // console.log(message);
         
         webChatClients.forEach(e=>{
-            console.log(e.user);
-            console.log(message[0]);
             if(e.user == message[2]){
-                e.send([data.user, message[1], e.user]);
+                e.send(['message_to_user',data.user, message[1], e.user]);
             }
         });
     });
@@ -50,7 +48,9 @@ ws.on('request', function(request){
     // EVERY ONLINE WEBCHAT CLIENTS
     // ['purpose','users']
     webChatClients.forEach(e =>{
-        e.send(e.user);
+        webChatClients.forEach(f =>{
+            e.send(['client_display',f.user]);
+        })
     })
 
     console.log(webChatClients.length);
